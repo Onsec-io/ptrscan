@@ -43,7 +43,7 @@ ip_total = ip_subnets.map { |subnet| IPAddr.new(subnet).to_range.count }.sum
 puts "Threads: #{threads}"
 puts "Found #{ip_subnets.count} subnets with #{ip_total} IP total."
 
-# read & parse NS information from file. Scope CSV report script output
+# Read & parse NS information from the file. Scope CSV report script output
 File.readlines('/opt/input/domain_ns_info.txt').each do |line|
   next if line.match(/(^$|^\s+$|^\t+$)/)
 
@@ -58,7 +58,7 @@ File.readlines('/opt/input/domain_ns_info.txt').each do |line|
   end
 end
 
-# collecting & grouping NS servers data
+# Сollecting & grouping NS servers data
 puts
 puts '--------------------- NS information: ---------------------'
 
@@ -67,7 +67,6 @@ resolv_data = {}
 domain_groups.each do |d_group|
   group_name = d_group.join(',')
   puts "Domain group: #{group_name}"
-  # summary_ns_data.select { |_, val| val == d_group }.keys.each do |ns|
   summary_ns_data.select { |_, val| val == d_group }.each_key do |ns|
     puts "\s\s\s\s#{ns}"
     resolve_dns(ns).each do |ip|
@@ -80,7 +79,7 @@ domain_groups.each do |d_group|
   puts '-' * 59
 end
 
-# transfotm NS & IP arrays to cycles
+# Transfotming NS & IP arrays to cycles
 @ns_enums = {}
 resolv_data.each do |group_name, ns_data|
   @ns_enums[group_name] = ns_data.keys.cycle
@@ -124,7 +123,7 @@ ip_subnets.each do |ip_subnet|
 end
 
 if output_data.empty?
-  puts 'No data was collected, check input'
+  puts 'No data was collected, check the input'
   exit 1
 end
 
